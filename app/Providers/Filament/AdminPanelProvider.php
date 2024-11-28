@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Admin\Pages\EditStatusPemiluPage;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -103,6 +104,11 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                     NavigationGroup::make('Master Data')
                         ->items([
+                            NavigationItem::make('Edit Status Pemilu')
+                                ->icon('heroicon-s-pencil-square')
+                                // ->visible(fn() => auth()->user()->can('view_role') && auth()->user()->can('view_any_role'))
+                                ->url(fn() => EditStatusPemiluPage::getUrl())
+                                ->isActiveWhen(fn() => request()->routeIs(EditStatusPemiluPage::getRouteName())),
                             // ...PageResource::getNavigationItems(),
                             // ...CategoryResource::getNavigationItems(),
                             // ...HomePageSettings::getNavigationItems(),
@@ -112,19 +118,22 @@ class AdminPanelProvider extends PanelProvider
                             NavigationItem::make('Roles & Permissions')
                                 ->icon('heroicon-s-shield-check')
                                 ->visible(fn() => auth()->user()->can('view_role') && auth()->user()->can('view_any_role'))
-                                ->url(fn() => route('filament.admin.resources.shield.roles.index')),
+                                ->url(fn() => route('filament.admin.resources.shield.roles.index'))
+                                ->isActiveWhen(fn() => request()->routeIs('filament.admin.resources.shield.roles.*')),
                             NavigationItem::make('Environment Editor')
                                 ->icon('heroicon-s-cog')
                                 ->url(fn() => route('filament.admin.pages.env-editor'))
-                                ->visible(fn() => auth()->user()->can('page_ViewEnv')),
+                                ->visible(fn() => auth()->user()->can('page_ViewEnv'))
+                                ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.env-editor')),
                             NavigationItem::make('Logs')
                                 ->icon('heroicon-s-newspaper')
                                 ->url(fn() => route('filament.admin.pages.logs'))
-                                ->visible(fn() => auth()->user()->can('page_Logs')),
+                                ->visible(fn() => auth()->user()->can('page_Logs'))
+                                ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.logs')),
                         ]),
 
                 ]);
             })
-            ;
+            ->spa();
     }
 }
