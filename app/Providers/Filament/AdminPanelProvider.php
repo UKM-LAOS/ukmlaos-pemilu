@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Admin\Pages\EditStatusPemiluPage;
+use App\Filament\Admin\Resources\CaketumResource;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -109,6 +110,7 @@ class AdminPanelProvider extends PanelProvider
                                 // ->visible(fn() => auth()->user()->can('view_role') && auth()->user()->can('view_any_role'))
                                 ->url(fn() => EditStatusPemiluPage::getUrl())
                                 ->isActiveWhen(fn() => request()->routeIs(EditStatusPemiluPage::getRouteName())),
+                            ...CaketumResource::getNavigationItems(),
                             // ...PageResource::getNavigationItems(),
                             // ...CategoryResource::getNavigationItems(),
                             // ...HomePageSettings::getNavigationItems(),
