@@ -7,6 +7,8 @@
             </p>
             <br>
             <strong>Status Kegiatan Pemilu: {{ $statusPemilu->status ? 'Aktif' : 'Ditutup' }}</strong>
+            <br>
+            <strong>Status Pemilih: {{ $statusSuara ? 'Telah Memilih' : 'Belum Memilih' }}</strong>
 
         </div>
     </x-filament::section>

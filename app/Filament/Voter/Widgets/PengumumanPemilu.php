@@ -2,6 +2,7 @@
 
 namespace App\Filament\Voter\Widgets;
 
+use App\Models\SuaraPemilu;
 use App\Models\StatusPemilu;
 use Filament\Widgets\Widget;
 
@@ -13,11 +14,13 @@ class PengumumanPemilu extends Widget
     protected static string $view = 'filament.voter.widgets.pengumuman-pemilu';
 
     public $statusPemilu; // Properti untuk data
+    public $statusSuara;
 
     public function mount()
     {
         // Ambil data yang dibutuhkan
         $this->statusPemilu = StatusPemilu::first();
+        $this->statusSuara = SuaraPemilu::whereUserId(auth()->id())->exists();
     }
 
 }
