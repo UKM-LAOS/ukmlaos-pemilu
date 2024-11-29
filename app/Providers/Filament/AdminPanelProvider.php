@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Admin\Pages\EditStatusPemiluPage;
 use App\Filament\Admin\Resources\CaketumResource;
+use App\Filament\Admin\Resources\SuaraPemiluResource;
 use App\Filament\Admin\Resources\UserResource;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
@@ -100,6 +101,7 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('')
                         ->items([
                             ...Dashboard::getNavigationItems(),
+                            ...SuaraPemiluResource::getNavigationItems(),
                             // ...PageResource::getNavigationItems(),
                             // ...CategoryResource::getNavigationItems(),
                             // ...HomePageSettings::getNavigationItems(),

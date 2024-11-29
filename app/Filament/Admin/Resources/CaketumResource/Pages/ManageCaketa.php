@@ -20,6 +20,6 @@ class ManageCaketa extends ManageRecords
 
     public function getTitle(): string|Htmlable
     {
-        return 'Manage Calon Ketua Umum';
+        return 'Daftar Calon Ketua Umum';
     }
 }

@@ -38,6 +38,12 @@ class CaketumResource extends Resource
                         Forms\Components\RichEditor::make('misi')
                             ->required()
                             ->columnSpanFull(),
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('foto')
+                            ->required()
+                            ->collection('caketum-image')
+                            ->maxFiles(1)
+                            ->maxSize('1024')
+                            ->image()
                     ])
             ]);
     }
@@ -48,6 +54,9 @@ class CaketumResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable(),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('foto')
+                    ->collection('caketum-image')
+                    ->label('Foto'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
