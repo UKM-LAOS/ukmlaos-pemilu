@@ -7,6 +7,7 @@ use Filament\Widgets\ChartWidget;
 
 class SuaraPemiluChart extends ChartWidget
 {
+    protected int | string | array $columnSpan = 'full';
     protected static ?int $sort = 2;
     protected static ?string $heading = 'Suara Pemilu';
     protected static bool $isLazy = false;

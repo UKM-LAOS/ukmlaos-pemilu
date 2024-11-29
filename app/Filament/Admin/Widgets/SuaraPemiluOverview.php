@@ -21,6 +21,11 @@ class SuaraPemiluOverview extends BaseWidget
                 'class' => 'w-full'
             ]);
         }
+
+        $totalSuara = DB::table('suara_pemilus')->count();
+        $stat[] = Stat::make('Total Suara', $totalSuara)->extraAttributes([
+            'class' => 'w-full'
+        ]);
         return $stat;
     }
 }
