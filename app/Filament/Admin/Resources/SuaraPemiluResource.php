@@ -22,6 +22,7 @@ class SuaraPemiluResource extends Resource
     protected static ?string $model = SuaraPemilu::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-speaker-wave';
+    protected static ?string $navigationLabel = 'Suara Pemilu';
 
     public static function canCreate(): bool
     {

@@ -7,7 +7,6 @@ use Filament\Widgets\ChartWidget;
 
 class SuaraPemiluChart extends ChartWidget
 {
-    protected int | string | array $columnSpan = 'full';
     protected static ?int $sort = 3;
     protected static ?string $heading = 'Suara Pemilu';
     protected static bool $isLazy = false;
@@ -19,16 +18,17 @@ class SuaraPemiluChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Blog posts created',
-                    'data' => $caketum->map(fn ($caketum) => $caketum->suara_pemilu_count),
+                    'label' => 'Perolehan Suara',
+                    'data' => $caketum->map(fn ($c) => $c->suara_pemilu_count),
+                    'backgroundColor' => ['green', 'blue'],
                 ],
             ],
-            'labels' => $caketum->map(fn ($caketum) => $caketum->nama),
+            'labels' => $caketum->map(fn ($c) => $c->nama),
         ];
     }
 
     protected function getType(): string
     {
-        return 'Doughnut';
+        return 'pie';
     }
 }
