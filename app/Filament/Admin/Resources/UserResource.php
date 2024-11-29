@@ -7,6 +7,7 @@ use App\Filament\Admin\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -56,6 +57,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(User::query()->whereHas('roles', fn(Builder $query) => $query->where('name', 'voter')))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama Pemilih')
@@ -76,8 +78,21 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('resetPassword')
+                    ->label('Reset Password')
+                    ->icon('heroicon-o-key')
+                    ->color('warning')
+                    ->action(function (User $user)
+                    {
+                        $user->update([
+                            'password' => bcrypt('password'),
+                        ]);
+
+                        Notification::make()
+                            ->success()
+                            ->title('Password berhasil direset')
+                            ->send();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
