@@ -83,8 +83,9 @@ class PemiluPage extends Page
     {
         $caketum = Caketum::with('media')->get();
         $options = [];
+        $index = 1;
         foreach($caketum as $c) {
-            $options[$c->id] = $c->nama;
+            $options[$c->id] = 'Paslon ' . $index++;
         }
         $images = [];
         foreach($caketum as $c) {
