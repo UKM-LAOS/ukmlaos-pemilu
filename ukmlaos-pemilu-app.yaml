@@ -1,0 +1,39 @@
+# my-laravel-app.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ukmlaos-pemilu
+  labels:
+    app: ukmlaos-pemilu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ukmlaos-pemilu
+  template:
+    metadata:
+      labels:
+        app: ukmlaos-pemilu
+    spec:
+      containers:
+      - name: ukmlaos-pemilu
+        image: [ my-laravel-app ]
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: mysql
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          value: my_database
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
