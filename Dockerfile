@@ -20,7 +20,7 @@ RUN apt-get update -y && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # PHP Extension
-RUN docker-php-ext-install gettext intl pdo_mysql gd exif
+RUN docker-php-ext-install gettext intl pdo_mysql gd exif zip
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
